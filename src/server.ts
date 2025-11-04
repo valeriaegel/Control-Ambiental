@@ -2,7 +2,7 @@
 
 import express, { Request, Response } from 'express';
 // Importamos la base de datos de administrador que creaste en configBD
-import { adminDatabase } from './src/adminConfig'; 
+import { adminDatabase } from './adminConfig'; 
 
 // Inicializamos la aplicación Express
 const app = express();
