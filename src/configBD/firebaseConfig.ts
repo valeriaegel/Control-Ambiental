@@ -5,14 +5,14 @@ import { getDatabase } from "firebase/database";
 
 // Reemplaza con la configuración de tu propio proyecto Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyCNxZA7RoCvdc2qvi9p5HWJlIszVQN_vXk",
-  authDomain: "sistema-de-control-ambiental.firebaseapp.com",
-  databaseURL: "https://sistema-de-control-ambiental-default-rtdb.firebaseio.com",
-  projectId: "sistema-de-control-ambiental",
-  storageBucket: "sistema-de-control-ambiental.firebasestorage.app",
-  messagingSenderId: "1062266460913",
-  appId: "1:1062266460913:web:6bb13525512642a87aa750",
-  measurementId: "G-VJ4QW5L6XM"
+apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 // Inicializar Firebase
 const app = initializeApp(firebaseConfig);

@@ -3,18 +3,20 @@ import { ref, onValue } from "firebase/database";
 import { database } from "./configBD/firebaseConfig"; 
 import Humedad from "./Components/Humedad";
 import Temperature from "./Components/Temperature";
+import Status from "./Components/Status";
+import Grafico from './Components/Grafico';
 
 
 // Interface para el estado (importante para TypeScript)
 interface ClimaData {
-    temperatura: string | number;
-    humedad: string | number;
+    temperatura: number;
+    humedad: number;
 }
 
 
 export default function App() {
     // 1. Estado para almacenar los datos de Firebase
-    const [clima, setClima] = useState<ClimaData>({ temperatura: '--', humedad: '--' });
+    const [clima, setClima] = useState<ClimaData>({ temperatura: 0, humedad: 0 });
     const [cargando, setCargando] = useState(true);
 
     // 2. Efecto para suscribirse a Firebase
@@ -27,10 +29,8 @@ export default function App() {
             
             if (data) {
                 setClima({
-                    // Temperatura: Usamos parseFloat() y toFixed(1)
-                    temperatura: data.temperatura ? parseFloat(data.temperatura).toFixed(1) : '--',
-                    // Humedad: Usamos parseInt() para obtener el número entero
-                    humedad: data.humedad ? parseInt(data.humedad).toString() : '--',
+                    temperatura: data.temperatura,
+                    humedad: data.humedad,
                 });
             } else {
                 console.log("No hay datos disponibles en el nodo /lecturas/actual.");
@@ -40,7 +40,6 @@ export default function App() {
         }, (error) => {
             console.error("Error al leer de Firebase:", error);
             setCargando(false);
-            setClima({ temperatura: 'Error', humedad: 'Error' });
         });
 
         // Limpieza: Detiene la suscripción al desmontar el componente
@@ -66,10 +65,15 @@ export default function App() {
                 <h1 className="text-4xl font-extrabold text-gray-800">Gestión de Control Ambiental</h1>
             </div>
             
-            <div className="w-full max-w-xl">
+            <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-3 gap-6">
                 {/* Pasar el valor del estado como prop 'valor' */}
                 <Temperature valor={clima.temperatura} />
                 <Humedad valor={clima.humedad} />
+                <Status valor={clima.temperatura} />
+            </div>
+
+            <div className='w-full max-w-5xl mt-8'>
+                   <Grafico />
             </div>
 
         </div>
