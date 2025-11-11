@@ -1,73 +1,110 @@
-# React + TypeScript + Vite
+# 🌱 Sistema de Monitoreo Ambiental Inteligente
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> **Control Ambiental IoT con ESP32 + Firebase + React**
 
-Currently, two official plugins are available:
+![React](https://img.shields.io/badge/Frontend-React-blue?logo=react)       ![TypeScript](https://img.shields.io/badge/Lenguaje-TypeScript-3178C6?logo=typescript)
+![Firebase](https://img.shields.io/badge/Backend-Firebase-orange?logo=firebase) ![Firebase Hosting](https://img.shields.io/badge/Hosting-Firebase%20Hosting-FFCA28?logo=firebase) ![TailwindCSS](https://img.shields.io/badge/UI-TailwindCSS-38B2AC?logo=tailwindcss)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🧭 Descripción general
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+El **Sistema de Monitoreo Ambiental Inteligente** es una aplicación **IoT (Internet de las Cosas)** que mide **temperatura y humedad en tiempo real** mediante un **ESP32** conectado a sensores ambientales.  
+El sistema integra **alertas visuales y sonoras** (LED RGB y buzzer) y permite la **visualización remota de datos** a través de un **dashboard web moderno** alojado en Firebase/Vercel.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🎯 Propósito
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Optimizar el control ambiental en entornos críticos como **salas de servidores, oficinas o laboratorios**.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🧩 Tecnologías utilizadas
+
+### 💻 Frontend
+- **React + TypeScript**
+- **Tailwind CSS** para el diseño responsivo
+- **react-chartjs-2** para visualizaciones gráficas
+
+### ☁️ Backend / Datos
+- **Firebase Realtime Database (RTDB)** para el almacenamiento de lecturas actuales e históricas  
+- **Firebase Admin SDK** para el fulfillment y la gestión del backend
+
+### ⚙️ Hardware / Control
+- **ESP32** (microcontrolador WiFi)
+- **Sensor KY-015** (Temperatura y Humedad)
+- **LED RGB** (alerta visual)
+- **Buzzer** (alerta sonora)
+- **C/C++ (Arduino)** para el firmware del dispositivo
+
+---
+
+## ⚙️ Instalación y Ejecución
+
+La instalación se divide en tres entornos: **hardware**, **frontend** y **backend**.
+
+### 🖥️ Instalación (Frontend)
+
+| Comando | Descripción |
+|----------|--------------|
+| `git clone https://github.com/valeriaegel/Control-Ambiental.git` | Clonar el repositorio |
+| `npm install` | Instalar dependencias |
+| Crear archivo `.env.local` | Configurar las claves de Firebase (`VITE_FIREBASE_...`) para desarrollo local |
+
+### 🚀 Ejecución
+
+| Comando | Descripción |
+|----------|--------------|
+| `npm run dev` | Ejecuta el entorno de desarrollo |
+| `npm run build` | Compila para producción (crea carpeta `dist`) |
+
+---
+
+## 🔑 Dependencias Externas Críticas
+
+| Dependencia | Uso | Tipo |
+|--------------|-----|------|
+| **Firebase Realtime Database** | Almacenamiento de datos (`/lecturas/actual` y `/lecturas/historial`) | Base de Datos NoSQL |
+| **Credenciales Firebase** | Claves públicas (`VITE_...`) y privadas (`FIREBASE_PRIVATE_KEY`) | Variables de entorno |
+| **Firebase Hosting** | Hosting del frontend | Plataforma de despliegue |
+
+
+---
+
+## 🧑‍💻 Uso
+
+El sistema puede operarse mediante una **interfaz gráfica (dashboard web)**
+
+### 📈 Interfaz Gráfica (Dashboard React)
+
+- **Acceso:** URL desplegada en Firebase Hosting  
+- **Diseño:** Estilo moderno con Tailwind CSS  
+- **Función:** Muestra tres componentes principales y un gráfico de línea con lecturas históricas
+
+| Vista | Componente | Datos Leídos | Descripción |
+|-------|-------------|---------------|--------------|
+| **Medición** | `Temperature.tsx`, `Humedad.tsx` | Temperatura, Humedad (`lecturas/actual`) | Lectura en tiempo real |
+| **Estado** | `Status.tsx` | Normal / Baja / Alta | Lógica de control: < 20°C → *Baja*, > 30°C → *Alta* |
+| **Gráfico** | `Grafico.tsx` | `lecturas/historial` | Evolución de temperatura en el tiempo |
+
+---
+## 🌐 Despliegue
+
+El proyecto se aloja completamente en **Firebase Hosting**, aprovechando su integración nativa con **Firebase Realtime Database**.  
+El comando de despliegue es:
+
+```bash
+firebase deploy
+
 ```
+[🔗 App en producción](https://sistema-de-control-ambiental.web.app/)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 💬 
+
+Desarrollado como proyecto educativo para "Tecnologias para la Automatizacion" de **control ambiental IoT** con integración **hardware + software + nube**, combinando microcontroladores, sensórica y desarrollo web moderno.
+
+

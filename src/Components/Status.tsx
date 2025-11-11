@@ -12,23 +12,27 @@ const status: React.FC<SensorDataProps> = ({ valor }) => {
     let colorText: string;
 
  if (valor<20) {
-        estado = "Baja";
+        estado = "🔵 Baja";
         colorText = "blue";
     } else if (valor>=20 && valor<30) {
-            estado = "Normal";
+            estado = "🟢 Normal";
             colorText = "green";
             } else {
-              estado = "Alta";
+              estado = "🔴 Alta";
               colorText = "red";
             }
         
 
     return (
-        <div className="bg-white shadow-xl rounded-xl py-10 px-8 mb-6 w-full text-center">
-            <h1 className="text-3xl font-bold text-black mb-4">
+        <div className="bg-slate-200 shadow-xl rounded-xl py-10 px-8 mb-6 w-full text-center border-slate-300 border-1">
+            <div
+                className='w-14 h-14 bg-gradient-to-br from-slate-400 mb-2 rounded-xl flex items-center justify-center '>
+                <span className='text-white text-2xl'>ⓘ</span>
+                </div>
+            <h1 className="text-4xl font-bold text-slate-800 mb-4">
                 Estado
             </h1>
-            <p className="text-4xl font-extrabold " style={{ color: colorText }}>
+            <p className="text-4xl font-bold " style={{ color: colorText }}>
                 {estado}
             </p> 
            

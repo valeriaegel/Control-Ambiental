@@ -14,6 +14,7 @@ import {
 } from 'chart.js';
 import { ref, onValue, query, limitToLast } from "firebase/database";
 import { database } from "../configBD/firebaseConfig"; 
+//import { color } from 'chart.js/helpers';
 
 // Registro de componentes de Chart.js
 ChartJS.register(
@@ -123,7 +124,8 @@ sortedData.forEach(item => {
       title: {
         display: true,
         text: 'Evolución de la Temperatura (°C)',
-        font: { size: 16 }
+        font: { size: 16 },
+        color: 'black',
       },
     },
     scales: {
@@ -138,22 +140,22 @@ sortedData.forEach(item => {
                 display: true,
                 text: 'Temperatura (°C)'
             },
-            min: 15, // Puedes ajustar el mínimo para darle más detalle
-            max: 35  // Puedes ajustar el máximo
-        }
+            min: 15, 
+            max: 35  
+      }
     }
   };
 
   if (loading) {
     return (
-      <div className="bg-white shadow-xl rounded-xl p-6 text-center text-gray-600 mt-6 w-full max-w-xl mx-auto">
+      <div className="bg-slate-200  shadow-xl rounded-xl p-6 text-center text-gray-600 mt-6 w-full max-w-xl mx-auto">
         Cargando histórico de temperatura...
       </div>
     );
   }
 
   return (
-    <div className="bg-white shadow-xl rounded-xl p-6 mb-6 w-full max-w-xl mx-auto mt-6">
+    <div className="bg-slate-200 shadow-xl rounded-xl p-6 mb-6 w-full max-w-xl mx-auto mt-6 border-slate-300 border-1">
       <div style={{ height: '350px' }}> {/* Contenedor con altura fija para el gráfico */}
         <Line data={chartData} options={options} />
       </div>

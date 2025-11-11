@@ -59,10 +59,10 @@ export default function App() {
 
     // 3. Renderizado - Pasando los datos como Props
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-8">
+        <div className="min-h-screen flex flex-col items-center justify-center p-8 bg-slate-700">
             
-            <div className="text-center mb-10 w-full max-w-xl">
-                <h1 className="text-4xl font-extrabold text-gray-800">Gestión de Control Ambiental</h1>
+            <div className="text-center mb-10 w-full">
+                <h1 className="text-5xl font-extrabold text-slate-300">⚙️ Gestión de Control Ambiental</h1>
             </div>
             
             <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -72,7 +72,7 @@ export default function App() {
                 <Status valor={clima.temperatura} />
             </div>
 
-            <div className='w-full max-w-5xl mt-8'>
+            <div className='w-full max-w-5xl '>
                    <Grafico />
             </div>
 
