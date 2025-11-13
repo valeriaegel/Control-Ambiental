@@ -12,13 +12,13 @@ const status: React.FC<SensorDataProps> = ({ valor }) => {
     let colorText: string;
 
  if (valor<20) {
-        estado = "🔵 Baja";
+        estado = "Temperatura Baja";
         colorText = "blue";
     } else if (valor>=20 && valor<30) {
-            estado = "🟢 Normal";
+            estado = "Temperatura Óptima";
             colorText = "green";
             } else {
-              estado = "🔴 Alta";
+              estado = "Temperatura Alta";
               colorText = "red";
             }
         
