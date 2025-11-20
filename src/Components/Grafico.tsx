@@ -46,6 +46,7 @@ const Grafico: React.FC = () => {
     datasets: [],
   });
   const [loading, setLoading] = useState(true);
+  const [ultimaFecha, setUltimaFecha] = useState<string>('');
 
   useEffect(() => {
     // 🛑 RUTA CORREGIDA: Apunta a 'lecturas/historial' y limita a las últimas 20 entradas
@@ -70,6 +71,7 @@ sortedData.forEach(item => {
     const rawTemperature = item.temperatura;
     const rawTimestamp = item.timestamp;
 
+
     // 2. Intentamos convertir la temperatura a número flotante
     // Usamos Number() en lugar de parseFloat para una conversión más estricta si el valor ya es un número en Firebase
     const tempValue = Number(rawTemperature);
@@ -85,6 +87,15 @@ sortedData.forEach(item => {
         
         // Añadimos el número
         temperatures.push(tempValue);
+
+        setUltimaFecha(
+  date.toLocaleString('es-ES', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric'
+  })
+);
+
     } else {
         console.warn(`Dato histórico omitido por ser inválido: ${JSON.stringify(item)}`);
     }
@@ -159,6 +170,11 @@ sortedData.forEach(item => {
       <div style={{ height: '350px' }}> {/* Contenedor con altura fija para el gráfico */}
         <Line data={chartData} options={options} />
       </div>
+      <p className="text-center text-xl font-bold text-slate-800 mt-4">
+  Última actualización: &nbsp;
+  <span className="text-xl font-bold text-slate-800">{ultimaFecha}</span>
+</p>
+
     </div>
   );
 };
